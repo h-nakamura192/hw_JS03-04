@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS03-01</title>
+  <link rel="stylesheet" href="assets/JS03-04.css">
+</head>
+<body>
+  <h1>ToDoリスト</h1>
+  <div class="flex-list">
+      <input type="radio" id="all" name="status">すべて
+      <input type="radio" id="working" name="status">作業中
+      <input type="radio" id="done" name="status">完了
+  </div>
+  <p class="index">ID  コメント  状態</p>
+  <div id="output">
+  </div>
+
+  <div>
+    <h1>新規タスクの追加</h1>
+    <input type="text" id="inputComment" >
+    <input id="taskAddBtn" type="button" value="追加" class="taskBtn"></input>
+  </div>
+
+  <script src="assets/JS03-04.js"></script>
+</body>
+</html>
