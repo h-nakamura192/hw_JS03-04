@@ -42,7 +42,14 @@ function createStatusBtn( value, div, index ) {
     } else {
       taskArrays[index].status = '作業中';
     }
-    reset();
+    //変更時、ラジオボタンが選択されていれば再度出力
+    if (document.radioBtns.status[1].checked) {
+      workingSwitch();
+    } else if (document.radioBtns.status[2].checked) {
+      doneSwitch();
+    } else {
+      reset();
+    }
   })
 
 }
@@ -98,26 +105,15 @@ taskAddBtn.addEventListener("click", function() {
   }
 }
 )
-// document.getElementById("taskAddBtn").addEventListener("click", function() {
-//   output.textContent = "";
-//   addTask();
-//   if ( document.getElementById("working").checked ) {
-//     workingSwitch();
-//   }else if ( document.getElementById("done").checked ) {
-//     doneSwitch();
-//   }else {
-//     outputHtml();
-//   }
-// }
-// )
 
 //タスク表示切り替えボタンの要素を取得
 const AllBtn = document.getElementById("all");
 const workingBtn = document.getElementById("working");
 const doneBtn = document.getElementById("done");
 
+//"作業中"の状態のタスクのみ出力する関数を定義
 function workingSwitch () {
-  output.innerHTML = "";
+  output.textContent = "";
   taskArrays.forEach( function(value, index) {
     if (value.status == '作業中') {
       const div = document.createElement("div");  
@@ -131,8 +127,9 @@ function workingSwitch () {
   });
 }
 
+//"完了"の状態のタスクのみ出力する関数を定義
 function doneSwitch () {
-  output.innerHTML = "";
+  output.textContent = "";
   taskArrays.forEach( function(value, index) {
     if (value.status == '完了') {
       const div = document.createElement("div");  
@@ -146,10 +143,11 @@ function doneSwitch () {
   });
 }
 
-AllBtn.addEventListener("click", function() {
-  reset();
-})
+//"すべて"のラジオボタンがチェックされた時、すべてのタスクを出力
+AllBtn.addEventListener("click", reset)
+//"作業中"のラジオボタンがチェックされた時、"作業中"の状態のタスクのみ出力
 workingBtn.addEventListener("click", workingSwitch)
+//"完了"のラジオボタンがチェックされた時、"完了"の状態のタスクのみ出力
 doneBtn.addEventListener("click", doneSwitch)
 
 
