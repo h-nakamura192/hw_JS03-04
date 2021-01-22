@@ -1,10 +1,10 @@
 'use strict';
-const output = document.getElementById("output");
+const output = document.getElementById('output');
 let taskArrays = [];
 
 //タスクを追加
 function addTask() {
-  const inputComment = document.getElementById("inputComment").value;
+  const inputComment = document.getElementById('inputComment').value;
   taskArrays.push({
     comment: inputComment,
     status: '作業中'
@@ -13,13 +13,13 @@ function addTask() {
 
 // タスクのid、コメントを出力
 function displayTask( index, div, value ) {
-  const taskId = document.createElement("p");  
+  const taskId = document.createElement('p');  
   // taskId.textContent = `${taskArrays.indexOf(taskArrays[i])}`;
   taskId.textContent = index;
   taskId.classList.add('box1');
   div.appendChild(taskId);
 
-  const taskComment = document.createElement("p");  
+  const taskComment = document.createElement('p');  
   taskComment.textContent = value.comment;
   taskComment.classList.add('box2');
   div.appendChild(taskComment);
@@ -27,7 +27,7 @@ function displayTask( index, div, value ) {
 
 //状態のボタンを出力
 function createStatusBtn( value, div, index ) {
-  const statusButton = document.createElement("input");
+  const statusButton = document.createElement('input');
   statusButton.type = 'button';
   // statusButton.value = taskArrays[i].status;
   statusButton.value = value.status;
@@ -36,7 +36,7 @@ function createStatusBtn( value, div, index ) {
   div.appendChild(statusButton);
   
   //タスクの状態を変更（完了⇄作業中）
-  statusButton.addEventListener("click", function() {
+  statusButton.addEventListener('click', function() {
     if (taskArrays[index].status == '作業中') {
       taskArrays[index].status = '完了';
     } else {
@@ -56,13 +56,20 @@ function createStatusBtn( value, div, index ) {
 
 //出力内容をすべて消去して、再度出力
 function reset() {
-  output.textContent = "";
+  output.textContent = '';
   outputHtml();
+  formClear();
+}
+
+//フォーム入力値を空にする
+function formClear() {
+  let input = document.getElementById('inputComment');
+  input.value = '';
 }
 
 //削除ボタンを出力
 function createDeleteBtn( div, index ) {
-  const deleteButton = document.createElement("input");
+  const deleteButton = document.createElement('input');
   deleteButton.type = 'button';
   deleteButton.value = '削除';
   deleteButton.classList.add('box3');
@@ -71,7 +78,7 @@ function createDeleteBtn( div, index ) {
   div.appendChild(deleteButton);
   
   //削除ボタンを押下した際にタスク削除し、再度出力
-  deleteButton.addEventListener("click", function() {
+  deleteButton.addEventListener('click', function() {
     let deleteId = index;
     taskArrays.splice(deleteId, 1);
     reset();
@@ -81,7 +88,7 @@ function createDeleteBtn( div, index ) {
 //taskArrays配列の要素をすべて出力
 function outputHtml () {
   taskArrays.forEach( function(value, index) {
-    const div = document.createElement("div");  
+    const div = document.createElement('div');  
     div.classList.add('box-wp');
     output.appendChild(div);
 
@@ -89,16 +96,17 @@ function outputHtml () {
     createStatusBtn(value, div, index);
     createDeleteBtn(div, index);
   });
+  formClear();
 }
 
 // 追加ボタンを押下した際に、タスクを追加
-const taskAddBtn = document.getElementById("taskAddBtn");
-taskAddBtn.addEventListener("click", function() {
-  output.textContent = "";
+const taskAddBtn = document.getElementById('taskAddBtn');
+taskAddBtn.addEventListener('click', function() {
+  output.textContent = '';
   addTask();
-  if ( document.getElementById("working").checked ) {
+  if ( document.getElementById('working').checked ) {
     workingSwitch();
-  }else if ( document.getElementById("done").checked ) {
+  }else if ( document.getElementById('done').checked ) {
     doneSwitch();
   }else {
     outputHtml();
@@ -107,16 +115,16 @@ taskAddBtn.addEventListener("click", function() {
 )
 
 //タスク表示切り替えボタンの要素を取得
-const AllBtn = document.getElementById("all");
-const workingBtn = document.getElementById("working");
-const doneBtn = document.getElementById("done");
+const AllBtn = document.getElementById('all');
+const workingBtn = document.getElementById('working');
+const doneBtn = document.getElementById('done');
 
 //"作業中"の状態のタスクのみ出力する関数を定義
 function workingSwitch () {
-  output.textContent = "";
+  output.textContent = '';
   taskArrays.forEach( function(value, index) {
     if (value.status == '作業中') {
-      const div = document.createElement("div");  
+      const div = document.createElement('div');  
       div.classList.add('box-wp');
       output.appendChild(div);
   
@@ -125,14 +133,15 @@ function workingSwitch () {
       createDeleteBtn(div, index);
     }
   });
+  formClear();
 }
 
 //"完了"の状態のタスクのみ出力する関数を定義
 function doneSwitch () {
-  output.textContent = "";
+  output.textContent = '';
   taskArrays.forEach( function(value, index) {
     if (value.status == '完了') {
-      const div = document.createElement("div");  
+      const div = document.createElement('div');  
       div.classList.add('box-wp');
       output.appendChild(div);
   
@@ -141,14 +150,15 @@ function doneSwitch () {
       createDeleteBtn(div, index);
     }
   });
+  formClear();
 }
 
 //"すべて"のラジオボタンがチェックされた時、すべてのタスクを出力
-AllBtn.addEventListener("click", reset)
+AllBtn.addEventListener('change', reset)
 //"作業中"のラジオボタンがチェックされた時、"作業中"の状態のタスクのみ出力
-workingBtn.addEventListener("click", workingSwitch)
+workingBtn.addEventListener('change', workingSwitch)
 //"完了"のラジオボタンがチェックされた時、"完了"の状態のタスクのみ出力
-doneBtn.addEventListener("click", doneSwitch)
+doneBtn.addEventListener('change', doneSwitch)
 
 
 

@@ -9,7 +9,7 @@
 <body>
   <h1>ToDoリスト</h1>
   <form class="flex-list" name="radioBtns">
-      <input type="radio" id="all" name="status">すべて
+      <input type="radio" id="all" name="status" checked="checked">すべて
       <input type="radio" id="working" name="status">作業中
       <input type="radio" id="done" name="status">完了
   </form>
@@ -17,11 +17,11 @@
   <div id="output">
   </div>
 
-  <div>
+  <form>
     <h1>新規タスクの追加</h1>
     <input type="text" id="inputComment" >
     <input id="taskAddBtn" type="button" value="追加" class="taskBtn"></input>
-  </div>
+  </form>
 
   <script src="assets/JS03-04.js"></script>
 </body>
